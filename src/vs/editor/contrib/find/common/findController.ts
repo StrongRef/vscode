@@ -498,11 +498,6 @@ function multiCursorFind(editor: editorCommon.ICommonCodeEditor, changeFindSearc
 		// Selection owns what is searched for
 		let s = editor.getSelection();
 
-		if (s.startLineNumber !== s.endLineNumber) {
-			// Cannot search for multiline string... yet...
-			return null;
-		}
-
 		if (s.isEmpty()) {
 			// selection is empty => expand to current word
 			let word = editor.getModel().getWordAtPosition(s.getStartPosition());
@@ -844,7 +839,7 @@ export class SelectionHighlighter extends Disposable implements editorCommon.IEd
 		}
 
 
-		let allMatches = model.findMatches(r.searchText, true, false, r.matchCase, r.wholeWord);
+		let allMatches = model.findMatches(r.searchText, true, true, r.matchCase, r.wholeWord);
 		allMatches.sort(Range.compareRangesUsingStarts);
 
 		selections.sort(Range.compareRangesUsingStarts);

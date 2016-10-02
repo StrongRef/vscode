@@ -801,7 +801,7 @@ export class TextModel extends OrderGuaranteeEventEmitter implements editorCommo
 		for (let i = 0, len = searchString.length; i < len; i++) {
 			let chCode = searchString.charCodeAt(i);
 
-			if (chCode === CharCode.Backslash) {
+			if (chCode === CharCode.Backslash || chCode === CharCode.LineFeed) {
 
 				// move to next char
 				i++;
@@ -809,6 +809,10 @@ export class TextModel extends OrderGuaranteeEventEmitter implements editorCommo
 				if (i >= len) {
 					// string ends with a \
 					break;
+				}
+
+				if (chCode === CharCode.LineFeed) {
+					return true;
 				}
 
 				let nextChCode = searchString.charCodeAt(i);
